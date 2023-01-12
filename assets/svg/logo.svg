@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Vrstva_2" data-name="Vrstva 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 326.98 179.59">
+  <defs>
+    <linearGradient id="linear-gradient" x1="212.6" y1="89.8" x2="326.98" y2="89.8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#85c2ff"/>
+      <stop offset=".03" stop-color="#72bdff"/>
+      <stop offset=".09" stop-color="#58b6ff"/>
+      <stop offset=".15" stop-color="#45b1ff"/>
+      <stop offset=".21" stop-color="#39aeff"/>
+      <stop offset=".28" stop-color="#36aeff"/>
+      <stop offset=".67" stop-color="#358cf0"/>
+      <stop offset=".89" stop-color="#3174e8"/>
+      <stop offset="1" stop-color="#2d5be3"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0" y1="89.8" x2="114.39" y2="89.8" xlink:href="#linear-gradient"/>
+    <linearGradient id="Nepojmenovaný_přechod_9" data-name="Nepojmenovaný přechod 9" x1="70.87" y1="89.8" x2="256.12" y2="89.8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffee25"/>
+      <stop offset="1" stop-color="#05d12d"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_4" data-name="Layer 4">
+    <g>
+      <line x1="305.22" y1="157.83" x2="234.36" y2="21.76" style="fill: none; stroke: url(#linear-gradient); stroke-linecap: round; stroke-linejoin: round; stroke-width: 43.52px;"/>
+      <line x1="92.63" y1="21.76" x2="21.76" y2="157.83" style="fill: none; stroke: url(#linear-gradient-2); stroke-linecap: round; stroke-linejoin: round; stroke-width: 43.52px;"/>
+      <polyline points="92.63 21.76 163.49 157.83 234.36 21.76" style="fill: none; stroke: url(#Nepojmenovaný_přechod_9); stroke-linecap: round; stroke-linejoin: round; stroke-width: 43.52px;"/>
+    </g>
+  </g>
+</svg>

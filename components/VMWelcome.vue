@@ -1,0 +1,56 @@
+<template>
+  <div class="container mx-auto flex items-center justify-center min-h-screen">
+    <svg id="Vrstva_7" class="w-64" data-name="Vrstva 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 94.58 55.52">
+      <defs>
+        <linearGradient id="linear-gradient" x1="0" y1="29.65" x2="94.58" y2="29.65" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#85c2ff" />
+          <stop offset=".03" stop-color="#72bdff" />
+          <stop offset=".09" stop-color="#58b6ff" />
+          <stop offset=".15" stop-color="#45b1ff" />
+          <stop offset=".21" stop-color="#39aeff" />
+          <stop offset=".28" stop-color="#36aeff" />
+          <stop offset=".67" stop-color="#358cf0" />
+          <stop offset=".89" stop-color="#3174e8" />
+          <stop offset="1" stop-color="#2d5be3" />
+        </linearGradient>
+        <linearGradient id="Nepojmenovaný_přechod_10" data-name="Nepojmenovaný přechod 10" x1="27.89" y1="17.4" x2="79" y2="35.36" gradientUnits="userSpaceOnUse">
+          <stop offset=".13" stop-color="#dad900" />
+          <stop offset="1" stop-color="#05d12d" />
+        </linearGradient>
+        <mask id="Mask">
+          <polyline class="mask" points="0 62.65 27.02 6.83 47.29 48.69 67.55 6.83 94.58 62.65" style="fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 13.82px;" />
+        </mask>
+      </defs>
+      <g mask="url(#Mask)">
+        <path d="m20.89,9.89l6.2,12.81-14,28.93c-1.66,3.43-5.78,4.86-9.2,3.2-3.42-1.66-4.86-5.78-3.2-9.2L20.89,3.89s.03-.07.05-.1c-.94,1.85-1.02,4.09-.05,6.1Zm73,35.74L73.69,3.89s-.04-.08-.06-.11c.94,1.85,1.03,4.1.06,6.11l-6.2,12.81,14,28.93c1.19,2.46,3.64,3.89,6.2,3.89,1.01,0,2.03-.22,2.99-.69,3.43-1.66,4.86-5.78,3.2-9.2Z" style="fill: url(#linear-gradient);" />
+        <path d="m47.29,55.52c-2.64,0-5.05-1.51-6.2-3.89L20.89,9.89c-1.66-3.42-.22-7.54,3.2-9.2,3.43-1.66,7.54-.22,9.2,3.2l14,28.93L61.29,3.89c1.66-3.42,5.78-4.86,9.2-3.2,3.42,1.66,4.86,5.78,3.2,9.2l-20.2,41.75c-1.15,2.38-3.56,3.89-6.2,3.89Z" style="fill: url(#Nepojmenovaný_přechod_10);" />
+      </g>
+    </svg>
+  </div>
+</template>
+
+<script setup>
+</script>
+
+<style lang="scss" scoped>
+.mask {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: mask ease-in-out 5s infinite;
+}
+
+@keyframes mask {
+  0% {
+    stroke-dashoffset: 220;
+  }
+  45% {
+    stroke-dashoffset: 0;
+  }
+  55% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -220;
+  }
+}
+</style>
