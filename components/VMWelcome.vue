@@ -1,11 +1,11 @@
 <template>
-  <div class="container mx-auto flex items-center justify-center min-h-screen">
-    <div class="flex flex-col lg:flex-row gap-10 xl:gap-32 items-center">
+  <div class="container mx-auto flex flex-col justify-center min-h-screen">
+    <div class="flex flex-col lg:flex-row gap-5 lg:gap-32 items-center justify-center">
       <div>
         <h1 class="mb-2">
           VMXY
         </h1>
-        <h2>Shorten any URL</h2>
+        <h2>Shorten any link</h2>
       </div>
       <div class="w-32 lg:w-64">
         <svg id="Vrstva_7" class="w-full" data-name="Vrstva 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 94.58 55.52">
@@ -36,10 +36,28 @@
         </svg>
       </div>
     </div>
+    <div v-if="false" class="py-10 lg:py-16 flex flex-col gap-2 w-full sm:w-3/4 lg:w-1/2 mx-auto">
+      <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+        <p class="whitespace-nowrap">
+          Enter original link
+        </p>
+        <input class="border-[1px] border-black rounded-full outline-black w-full py-1 px-2" type="text">
+      </div>
+      <div class="flex items-center">
+        <p>vmxy.cz/</p>
+        <input class="border-[1px] border-black rounded-full outline-black w-full py-1 px-2" type="text">
+      </div>
+      <div class="w-full bg-black rounded-full text-white text-center py-1.5" @click="log()">
+        Create
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+function log () {
+  console.log('Create link')
+}
 </script>
 
 <style lang="scss" scoped>
