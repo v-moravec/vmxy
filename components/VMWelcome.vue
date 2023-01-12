@@ -36,21 +36,6 @@
         </svg>
       </div>
     </div>
-    <div v-if="false" class="py-10 lg:py-16 flex flex-col gap-2 w-full sm:w-3/4 lg:w-1/2 mx-auto">
-      <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
-        <p class="whitespace-nowrap">
-          Enter original link
-        </p>
-        <input class="border-[1px] border-black rounded-full outline-black w-full py-1 px-2" type="text">
-      </div>
-      <div class="flex items-center">
-        <p>vmxy.cz/</p>
-        <input class="border-[1px] border-black rounded-full outline-black w-full py-1 px-2" type="text">
-      </div>
-      <div class="w-full bg-black rounded-full text-white text-center py-1.5" @click="log()">
-        Create
-      </div>
-    </div>
   </div>
 </template>
 
