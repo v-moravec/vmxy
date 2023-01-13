@@ -1,11 +1,13 @@
 <template>
   <div class="container mx-auto flex flex-col justify-center min-h-screen">
-    <div class="flex flex-col lg:flex-row gap-5 lg:gap-32 items-center justify-center">
+    <div class="flex flex-col sm:flex-row gap-5 lg:gap-32 items-center justify-center">
       <div>
         <h1 class="mb-2">
           VMXY
         </h1>
-        <h2>Shorten any link</h2>
+        <h2 class="mb-0">
+          Shorten any link
+        </h2>
       </div>
       <div class="w-32 lg:w-64">
         <svg id="Vrstva_7" class="w-full" data-name="Vrstva 7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 94.58 55.52">
@@ -36,12 +38,49 @@
         </svg>
       </div>
     </div>
+    <div v-if="false" class="my-10 lg:my-16 flex flex-col gap-3 border-[1px] border-black p-4 rounded-3xl w-full sm:w-3/4 lg:w-1/2 mx-auto text-xl">
+      <div class="flex flex-col">
+        <input v-model="url" placeholder="Enter your link" class="bg-transparent border-[1px] border-black rounded-full outline-black w-full py-2 px-4" type="url" @input="checkUrl()">
+        <p v-if="!validUrl" class="ml-4 mt-1 text-red-600">
+          Enter valid link
+        </p>
+      </div>
+      <div class="flex flex-col md:flex-row items-center gap-3 md:gap-2">
+        <div class="focus-within:outline outline-1 outline-black flex items-center border-[1px] border-black rounded-full py-2 px-4 w-full">
+          <p>
+            vmxy.cz/
+          </p>
+          <input v-model="shortPath" placeholder="your-path" class="bg-transparent outline-none w-full" type="text">
+        </div>
+        <div class="bg-black rounded-full text-white text-center py-2 px-4 w-full md:w-fit cursor-pointer select-none" @click="generatePath()">
+          Random
+        </div>
+      </div>
+      <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-not-allowed select-none" @click="log()">
+        Create
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { nanoid } from 'nanoid'
+
+const url = ref('')
+const validUrl = ref(true)
+const shortPath = ref('')
+
+function generatePath() {
+  shortPath.value = nanoid(10)
+}
+
 function log () {
   console.log('Create link')
+}
+
+function checkUrl () {
+  const res = url.value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+  validUrl.value = (res !== null)
 }
 </script>
 
