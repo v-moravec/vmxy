@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   ssr: true,
   nitro: {
-    preset: 'cloudflare-pages'
+    preset: 'node-server'
   },
   modules: [
     '@nuxtjs/tailwindcss',
