@@ -1,6 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   ssr: true,
+  nitro: {
+    preset: 'cloudflare-pages'
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts'
