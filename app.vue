@@ -17,8 +17,4 @@
 //   ogImage
 // })
 
-const {data: res} = await useFetch(window.origin + '/helloworld?/jagu')
-
-console.log(res)
-
 </script>
