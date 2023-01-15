@@ -7,17 +7,18 @@ export default defineEventHandler(async (event) => {
 
   const value = body.value
 
-  const res = await $fetch(endpoint(body.key), {
-    method: 'POST',
-    parseResponse: txt => txt,
-    body: JSON.stringify({
-      value: value
-    })
-  }).catch(() => {
-    return false
-  })
+  // const res = await $fetch(endpoint(body.key), {
+  //   method: 'POST',
+  //   parseResponse: txt => txt,
+  //   body: JSON.stringify({
+  //     value: value
+  //   })
+  // }).catch(() => {
+  //   return false
+  // })
 
-  return !!res;
+  // return !!res;
+  return 'Hello world'
 })
 
 function endpoint ( key: string) {
