@@ -1,11 +1,6 @@
-const config = useRuntimeConfig()
-
 export default defineEventHandler(async (event) => {
-  const res = await $fetch(endpoint(event.context.params.path, config.cloudflareAccountId, config.cloudflareVMXYRedirects), {
+  const res = await $fetch(endpoint(event.context.params.path), {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${config.cloudflareKVApiToken}`
-    },
     parseResponse: txt => txt
   }).catch(() => {
     return null
@@ -18,6 +13,6 @@ export default defineEventHandler(async (event) => {
   return false
 })
 
-function endpoint ( key: string, accountID: string, namespaceID: string) {
-  return `https://api.cloudflare.com/client/v4/accounts/${accountID}/storage/kv/namespaces/${namespaceID}/values/${key}`
+function endpoint ( key: string) {
+  return `https://kv.vmxy.cz/${key}`
 }

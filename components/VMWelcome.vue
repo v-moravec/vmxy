@@ -43,7 +43,10 @@
         <p class="text-2xl font-medium">
           Created ✅
         </p>
-        <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-pointer select-none" @click="added = false">
+        <NuxtLink external :to="`${config.public.url}/${path}`">
+          {{ `${config.public.url}/${path}` }}
+        </NuxtLink>
+        <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-pointer select-none" @click="resetForm(); added = false">
           Back home
         </div>
       </div>
@@ -100,6 +103,7 @@ const addingPath = ref(false)
 const added = ref(false)
 const errorPath = ref(false)
 const errorUrl = ref(false)
+const config = useRuntimeConfig()
 
 async function checkPath () {
   if(!path.value.length) {
@@ -159,7 +163,6 @@ async function addPath () {
   if(data.value) {
     // TODO
     added.value = true
-    resetForm()
     console.log('Data added! ✅')
   } else {
     // TODO
