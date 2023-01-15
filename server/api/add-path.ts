@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const value = body.value
 
   const res = await $fetch(endpoint(body.key), {
-    method: 'POST',
+    method: 'PUT',
     parseResponse: txt => txt,
     body: JSON.stringify({
       value: value
