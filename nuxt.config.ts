@@ -1,9 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   ssr: true,
-  nitro: {
-    preset: 'node-server'
-  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts'
@@ -11,6 +8,15 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/style.css'
   ],
+  runtimeConfig: {
+    cloudflareKVApiToken: process.env.CLOUDFLARE_KV_API_TOKEN,
+    cloudflareAccountId: process.env.CLOUDFLARE_ACCOUNT_ID,
+    cloudflareVMXYRedirects: process.env.CLOUDFLARE_VMXY_REDIRECTS,
+    public: {
+      url: process.env.URL || 'http://localhost:3000',
+
+    }
+  },
   // TODO: Documentation says this should be named "head", but with that name it doesn't work.
   app: {
     head: {

@@ -38,49 +38,147 @@
         </svg>
       </div>
     </div>
-    <div v-if="false" class="my-10 lg:my-16 flex flex-col gap-3 border-[1px] border-black p-4 rounded-3xl w-full sm:w-3/4 lg:w-1/2 mx-auto text-xl">
-      <div class="flex flex-col">
-        <input v-model="url" placeholder="Enter your link" class="bg-transparent border-[1px] border-black rounded-full outline-black w-full py-2 px-4" type="url" @input="checkUrl()">
-        <p v-if="!validUrl" class="ml-4 mt-1 text-red-600">
-          Enter valid link
+    <div class="my-10 lg:my-16 border-[1px] border-black p-4 rounded-3xl w-full sm:w-3/4 lg:w-1/2 mx-auto text-xl">
+      <div v-if="added" class="flex flex-col items-center gap-3">
+        <p class="text-2xl font-medium">
+          Created ✅
         </p>
+        <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-pointer select-none" @click="added = false">
+          Back home
+        </div>
       </div>
-      <div class="flex flex-col md:flex-row items-center gap-3 md:gap-2">
-        <div class="focus-within:outline outline-1 outline-black flex items-center border-[1px] border-black rounded-full py-2 px-4 w-full">
-          <p>
-            vmxy.cz/
+      <div v-else class="flex flex-col gap-3">
+        <div class="flex flex-col">
+          <input v-model="url" placeholder="https://google.com" class="bg-transparent border-[1px] border-black rounded-full outline-black w-full py-2 px-4" type="url" @input="checkUrl()">
+          <p v-if="errorUrl" class="ml-4 mt-1 text-red-600">
+            Enter valid link
           </p>
-          <input v-model="shortPath" placeholder="your-path" class="bg-transparent outline-none w-full" type="text">
         </div>
-        <div class="bg-black rounded-full text-white text-center py-2 px-4 w-full md:w-fit cursor-pointer select-none" @click="generatePath()">
-          Random
+        <div>
+          <div class="flex flex-col md:flex-row items-center gap-3 md:gap-2">
+            <div class="focus-within:outline outline-1 outline-black flex items-center border-[1px] border-black rounded-full py-2 px-4 w-full">
+              <div class="flex">
+                <p>
+                  vmxy.cz/
+                </p>
+                <input v-model="path" placeholder="your-path" class="bg-transparent outline-none w-full" type="text" @input="checkingPath = true; useDebounce(checkPath, 300)">
+              </div>
+              <div v-if="path" class="flex justify-center w-16">
+                <span v-if="checkingPath" class="loader" />
+                <span v-else-if="validPath">✅</span>
+                <span v-else>❌</span>
+              </div>
+            </div>
+            <div class="bg-black rounded-full text-white text-center py-2 px-4 w-full md:w-fit cursor-pointer select-none" @click="generatePath();">
+              Random
+            </div>
+          </div>
+          <p v-if="errorPath" class="ml-4 mt-1 text-red-600">
+            Enter valid path
+          </p>
         </div>
-      </div>
-      <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-not-allowed select-none" @click="log()">
-        Create
+        <div class="w-full bg-black rounded-full text-white text-center py-2 px-4 cursor-pointer select-none flex items-center justify-center" @click="addPath()">
+          <div v-if="addingPath" class="flex min-h-[28px] items-center">
+            <span class="loader-white" />
+          </div>
+          <span v-else>Create</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { nanoid } from 'nanoid'
 
 const url = ref('')
 const validUrl = ref(true)
-const shortPath = ref('')
+const validPath = ref(true)
+const path = ref('')
+const checkingPath = ref(false)
+const addingPath = ref(false)
+const added = ref(false)
+const errorPath = ref(false)
+const errorUrl = ref(false)
 
-function generatePath() {
-  shortPath.value = nanoid(10)
-}
+async function checkPath () {
+  if(!path.value.length) {
+    validPath.value = false
+    return
+  }
 
-function log () {
-  console.log('Create link')
+  const { data } = await useFetch(`/api/check-path/${path.value}`)
+
+  if(data.value) {
+    validPath.value = false
+    console.log('This path is already in use! ❌')
+  } else {
+    validPath.value = true
+    errorPath.value = false
+    console.log('This path is available! ✅')
+  }
+  checkingPath.value = false
 }
 
 function checkUrl () {
   const res = url.value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-  validUrl.value = (res !== null)
+  if (res !== null) {
+    validUrl.value = true
+    errorUrl.value = false
+  } else {
+    validUrl.value = false
+  }
+}
+
+async function addPath () {
+  checkUrl()
+  checkPath()
+
+  if(!validUrl.value) {
+    errorUrl.value = true
+  }
+  if(!validPath.value) {
+    errorPath.value = true
+  }
+  if(!validPath.value || !validUrl.value) {
+    return
+  }
+
+  addingPath.value = true
+
+  const body = JSON.stringify({
+    key: path.value,
+    value: url.value
+  })
+
+  const { data } = await useFetch('/api/add-path', {
+    method: 'POST',
+    body
+  })
+
+  if(data.value) {
+    // TODO
+    added.value = true
+    resetForm()
+    console.log('Data added! ✅')
+  } else {
+    // TODO
+    console.log('An error occured! ❌')
+  }
+  addingPath.value = false
+}
+
+function resetForm () {
+  url.value = ''
+  validUrl.value = true
+  path.value = ''
+  validPath.value = true
+}
+
+function generatePath() {
+  path.value = nanoid(10)
+  checkingPath.value = true
+  checkPath()
 }
 </script>
 
@@ -105,4 +203,55 @@ function checkUrl () {
     stroke-dashoffset: -220;
   }
 }
+
+.loader {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+  box-shadow: 16px 0 #fff, -16px 0 #fff;
+  position: relative;
+  animation: flash 0.5s ease-out infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    background-color: #0009;
+    box-shadow: 16px 0 #0009, -16px 0 #000;
+  }
+  50% {
+    background-color: #000;
+    box-shadow: 16px 0 #0009, -16px 0 #0009;
+  }
+  100% {
+    background-color: #0009;
+    box-shadow: 16px 0 #000, -16px 0 #0009;
+  }
+}
+
+.loader-white {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 24px 0 #fff, -24px 0 #fff;
+  position: relative;
+  animation: flash-white 0.5s ease-out infinite alternate;
+}
+
+@keyframes flash-white {
+  0% {
+    background-color: #FFF2;
+    box-shadow: 24px 0 #FFF2, -24px 0 #FFF;
+  }
+  50% {
+    background-color: #FFF;
+    box-shadow: 24px 0 #FFF2, -24px 0 #FFF2;
+  }
+  100% {
+    background-color: #FFF2;
+    box-shadow: 24px 0 #FFF, -24px 0 #FFF2;
+  }
+}
+
 </style>
