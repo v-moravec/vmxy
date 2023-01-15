@@ -156,6 +156,7 @@ async function addPath () {
   })
 
   const { data } = await useFetch('/api/add-path', {
+    method: 'POST',
     body
   })
 
