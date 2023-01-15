@@ -150,14 +150,16 @@ async function addPath () {
 
   addingPath.value = true
 
-  const body = JSON.stringify({
-    key: path.value,
-    value: url.value
-  })
+  // const body = JSON.stringify({
+  //   key: path.value,
+  //   value: url.value
+  // })
 
-  const { data } = await useFetch('/api/add-path', {
-    method: 'POST',
-    body
+  const { data } = await useFetch(`/api/add-path`, {
+    headers: {
+      key: path.value,
+      value: url.value
+    }
   })
 
   if(data.value) {

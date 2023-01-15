@@ -1,28 +1,27 @@
-const config = useRuntimeConfig()
-
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
+  const key = getHeader(event, 'key')
+  const value = getHeader(event, 'value')
 
-  if(!body.key || !body.value) {
+  console.log(key, value)
+
+  if(!key || !value) {
     return false
   }
 
-  const value = body.value
-
-  const res = await $fetch(endpoint(body.key, config.cloudflareAccountId, config.cloudflareVMXYRedirects), {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${config.cloudflareKVApiToken}`
-    },
+  const res = await $fetch(endpoint(key), {
+    method: 'POST',
     parseResponse: txt => txt,
-    body: value
-  }).catch(() => {
+    body: JSON.stringify({
+      value
+    })
+  }).catch((e) => {
+    console.error(e)
     return false
   })
 
   return !!res;
 })
 
-function endpoint ( key: string, accountID: string, namespaceID: string) {
-  return `https://api.cloudflare.com/client/v4/accounts/${accountID}/storage/kv/namespaces/${namespaceID}/values/${key}`
+function endpoint ( key: string) {
+  return `https://kv.vmxy.cz/${key}`
 }
