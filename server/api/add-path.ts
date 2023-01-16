@@ -1,4 +1,5 @@
 export default defineEventHandler(async (event) => {
+
   const key = getHeader(event, 'key')
   const value = getHeader(event, 'value')
 
