@@ -2,7 +2,7 @@
   "private": true,
   "description": "A Nuxt starter template used by Jagu",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxt build && cp _headers .output/public/_headers",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
