@@ -53,30 +53,41 @@
       <div v-else class="flex flex-col gap-3">
         <div class="flex flex-col">
           <input v-model="url" placeholder="https://google.com" class="bg-transparent border-[1px] border-black rounded-full outline-black w-full py-2 px-4" type="url" @input="checkUrl()">
-          <p v-if="errorUrl" class="ml-4 mt-1 text-red-600">
+          <p v-if="errorUrl" class="group ml-4 mt-1 text-red-600 cursor-default">
             Enter valid link
+            <span class="bg-red-600 rounded-full px-2 text-white">
+              ?
+            </span>
+            <span class="group-hover:block absolute hidden bg-red-600 text-white py-2 px-4 mt-2 mx-5 text-sm rounded-full">
+              Link has to start with <span class="underline">https://</span> or <span class="underline">http://</span>
+            </span>
           </p>
         </div>
         <div>
           <div class="flex flex-col md:flex-row items-center gap-3 md:gap-2">
             <div class="focus-within:outline outline-1 outline-black flex items-center border-[1px] border-black rounded-full py-2 px-4 w-full">
-              <div class="flex">
+              <div class="flex w-full">
                 <p>
                   vmxy.cz/
                 </p>
                 <input v-model="path" placeholder="your-path" class="bg-transparent outline-none w-full" type="text" @input="checkingPath = true; useDebounce(checkPath, 300)">
               </div>
-              <div v-if="path" class="flex justify-center w-16">
+              <div v-if="path" class="flex justify-center w-16 cursor-default">
                 <span v-if="checkingPath" class="loader" />
                 <span v-else-if="validPath">✅</span>
-                <span v-else>❌</span>
+                <span v-else class="group">
+                  ❌
+                  <span class="group-hover:block absolute hidden bg-red-600 text-white py-2 px-4 mt-2 -translate-x-1/2 w-54 text-sm rounded-3xl sm:rounded-full">
+                    This path is already taken
+                  </span>
+                </span>
               </div>
             </div>
             <div class="bg-black rounded-full text-white text-center py-2 px-4 w-full md:w-fit cursor-pointer select-none" @click="generatePath();">
               Random
             </div>
           </div>
-          <p v-if="errorPath" class="ml-4 mt-1 text-red-600">
+          <p v-if="errorPath" class="ml-4 mt-1 text-red-600 cursor-default">
             Enter valid path
           </p>
         </div>
@@ -92,7 +103,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nanoid } from 'nanoid'
+import { customAlphabet } from 'nanoid'
 
 const url = ref('')
 const validUrl = ref(true)
@@ -155,7 +166,7 @@ async function addPath () {
   //   value: url.value
   // })
 
-  const { data } = await useFetch(`/api/add-path`, {
+  const { data } = await useFetch('/api/add-path', {
     headers: {
       key: path.value,
       value: url.value
@@ -181,7 +192,8 @@ function resetForm () {
 }
 
 function generatePath() {
-  path.value = nanoid(10)
+  const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 7)
+  path.value = nanoid()
   checkingPath.value = true
   checkPath()
 }
