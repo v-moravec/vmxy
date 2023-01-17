@@ -6,7 +6,7 @@
           VMXY
         </h1>
         <h2 class="mb-0">
-          Shorten any link 🚀
+          Shorten any link
         </h2>
       </div>
       <div class="w-32 lg:w-64">
