@@ -24,6 +24,10 @@ export default defineNuxtConfig({
       // TODO: Add your own fonts (change in assets/css/style.css as well).
       link: [
         { rel: 'icon', href: '/favicon.ico' },
+      ],
+      script: [
+        // <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1ca3e4198e3e451e8822a3ab9b09e785"}'></script><!-- End Cloudflare Web Analytics -->
+        { defer: true, src: 'https://static.cloudflareinsights.com/beacon.min.js', 'data-cf-beacon': '{"token": "1ca3e4198e3e451e8822a3ab9b09e785"}', tagPosition: 'bodyClose' }
       ]
     },
   },
